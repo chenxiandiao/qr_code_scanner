@@ -18,6 +18,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
+import android.util.Log
 
 
 class QRView(
@@ -52,6 +53,7 @@ class QRView(
 
             },
             onResume = {
+                Log.e("cxd", "onResume")
                 if (!hasCameraPermission) checkAndRequestPermission()
                 else if (!isPaused && hasCameraPermission) barcodeView?.resume()
             }
@@ -123,7 +125,9 @@ class QRView(
             if (params[PARAMS_CAMERA_FACING] as Int == 1) {
                 barcodeView.cameraSettings?.requestedCameraId = CameraInfo.CAMERA_FACING_FRONT
             }
-        } else if (!isPaused) {
+    
+        } 
+        if (!isPaused) {
             barcodeView.resume()
         }
 
